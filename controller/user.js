@@ -63,15 +63,10 @@ export const ownerReg = async (req, res) => {
 };
 
 export const createRegister = async (req, res) => {
-  const Body = req.body;
-  // let obj = await checkAccessCreate(req.user, menuId);
-  // if (obj.access == false && obj.message !== null)
-  //   return res.status(obj.status).json({ message: obj.message });
+  const Body = req.body; 
   const saltRounds = 10;
   const val = validateUser(req.body);
-  if (val) return res.status(400).json({ message: val.error });
-  // if (!req.body.password)
-  //   return res.status(400).json({ message: "please enter password" });
+  if (val) return res.status(400).json({ message: val.error });  
   let email = req.body.email;
   let firstName = captialtheFirstLetter(Body.firstName);
   let lastName = captialtheFirstLetter(Body.lastName);
