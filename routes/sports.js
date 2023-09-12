@@ -1,15 +1,13 @@
 import express from "express";
-import { createSports } from "../controller/sports.js";
+import { createSports, getAllSports, getSportById, updateSports } from "../controller/sports.js";
 
 // import auth from "../middleware/auth.js";
 
 const router = express.Router();
 
 router.post("/create",createSports)
-// router.get("/all",getAllUser)
-// router.get("/profile",auth,profile)
-// router.post("/login",login)
-// router.put("/update/:id", updateUser)
-// router.get("/getaddressbyid",[auth,authZ], getAddressById)
+router.get("/getall",getAllSports)
+router.get("/getbyid/:id",getSportById)
+router.put("/update/:id", updateSports)
 
 export default router; 

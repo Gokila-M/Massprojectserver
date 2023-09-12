@@ -30,28 +30,46 @@ export const createSports = async (req, res) => {
     try {
       const users = await Sports.findById({ _id: req.params.id });
       if (!users) return res.status(400).json({ message: "users not found" });
-      if( !email && !firstName && !password && !gender && !lastName && !dob ){
+      if( !sportsName && !sportStartTime && !sportStartDate && !registerStartDate && !registerEndDate && !isActive && !isBlock ){
         return res.status(400).json({ message: "lease edit Something to update" });
       }
-      let resp = await Sports.findByIdAndUpdate(
+      let updsports = await Sports.findByIdAndUpdate(
         { _id: req.params.id },
         {
           sportsName: sportsName,          
-          sportStartTime: Body.sportStartTime,
-          sportStartDate: Body.sportStartDate,
-          registerStartDate: Body.registerStartDate,       
-          registerEndDate: Body.registerEndDate,
-          isActive:Body.isActive,
-          isBlock:Body.isBlock,
+          sportStartTime: sportStartTime,
+          sportStartDate:sportStartDate,
+          registerStartDate:registerStartDate,       
+          registerEndDate: registerEndDate,
+          isActive:isActive,
+          isBlock:isBlock,
         },{new:true}
       );
-      if (!resp) {
+      if (!updsports) {
         return res.status(400).json({ message: "something went wrong" });
       }
       else{
-        return res.status(200).json({ message: "User update successfully" ,Data:resp});
+        return res.status(200).json({ message: "Sports update successfully" ,Data:updsports});
       }
    
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  };
+
+  export const getSportById = async (req, res) => {
+    try {
+      const view = await Sports.findById({ _id: req.params.id })
+      res.status(200).json({ data: view });
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  };
+
+  export const getAllSports = async (req, res) => {
+    try {
+      const view = await Sports.find();
+      res.status(200).json({ data: view });
     } catch (error) {
       res.status(400).json({ message: error.message });
     }
